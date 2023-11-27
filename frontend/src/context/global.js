@@ -51,6 +51,7 @@ export const GlobalProvider = ({ children }) => {
       <GlobalContext.Provider
         value={{
           ...state,
+          getAllVideos,
         }}
       >
         {children}

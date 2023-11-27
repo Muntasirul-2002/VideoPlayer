@@ -3,18 +3,33 @@ import Videos from "./components/Videos";
 import { useGlobalContext } from "./context/global";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import VideoPlayer from "./components/VideoPlayer";
+import { useState } from "react";
+import Upload from "./components/Upload";
+import Button from "./components/Button";
 function App() {
-  const g = useGlobalContext();
-  console.log(g);
+  const [modal, setModal] = useState(false);
+
   return (
     <BrowserRouter>
       <AppStyled className="App">
+        <div className="upload">
+          <Button
+            onClick={() => {
+              setModal(true);
+            }}
+            bg={"#1e90ff"}
+            name="Upload"
+          />
+        </div>
+        {modal && <Upload />}
         <h1>Video Uploader</h1>
         <Routes>
           <Route path="/" element={<Videos />} />
           <Route path="/videos/:id" element={<VideoPlayer />} />
         </Routes>
-        <Videos />
+        {modal && (
+          <div className="overlay" onClick={() => setModal(false)}></div>
+        )}
       </AppStyled>
     </BrowserRouter>
   );
